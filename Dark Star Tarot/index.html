@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Star Tarot - Psychic Readings by Ann Lee</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Color Theme */
+        :root {
+            --icon-color: #3a008f; /* Icon color */
+            --section-bg: #7054aa; /* Purple section background */
+            --dark-blue: #00008b; /* Dark blue for box borders */
+            --light-text: #f0f0ff; /* Light text for contrast */
+            --deep-space: #23297a; /* Background color */
+            --space-purple: #2a2f8a;
+            --text-color: #73C2FB; /* Text color */
+            --price-strip-bg: #9c8bc6; /* Lighter purple for price strips */
+            --price-text-color: #00008b; /* Dark blue for price text */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent; /* Prevent tap highlight globally */
+        }
+        
+        body {
+            background-color: var(--deep-space);
+            color: var(--text-color);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        
+        /* Starry Night Background */
+        .starry-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(35, 41, 122, 0.3) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 80%, rgba(35, 41, 122, 0.3) 0%, transparent 40%),
+                linear-gradient(0deg, var(--deep-space) 0%, #1a1f6a 100%);
+        }
+        
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .pentacle-small {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            animation: twinkle 3s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+        
+        /* Header & Navigation */
+        header {
+            background: rgba(35, 41, 122, 0.9);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--text-color);
+        }
+        
+        .logo {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        
+        .logo-pentacle {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-pentacle svg {
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke: var(--text-color);
+            stroke-width: 2;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 1px solid transparent;
+            font-weight: bold;
+        }
+        
+        .nav-links a:hover {
+            color: var(--icon-color);
+            border-color: var(--text-color);
+            background: rgba(115, 194, 251, 0.1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 3rem 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+        
+        /* Glowing 2-inch Pentagram */
+        .glowing-pentagram {
+            width: 192px; /* 2 inches = 192px at 96 DPI */
+            height: 192px;
+            margin: 1.5rem auto 2rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .glowing-pentagram svg {
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke: rgba(115, 194, 251, 0.6); /* Lighter color */
+            stroke-width: 3;
+            filter: drop-shadow(0 0 15px rgba(115, 194, 251, 0.8));
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            0% {
+                stroke: rgba(115, 194, 251, 0.6);
+                filter: drop-shadow(0 0 10px rgba(115, 194, 251, 0.6));
+            }
+            100% {
+                stroke: rgba(115, 194, 251, 0.9);
+                filter: drop-shadow(0 0 20px rgba(115, 194, 251, 0.9));
+            }
+        }
+        
+        .hero .subtitle {
+            font-size: 1.8rem;
+            color: var(--text-color);
+            margin-bottom: 2.5rem;
+            font-style: italic;
+            font-weight: bold;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+            color: var(--text-color);
+            padding: 0 1rem;
+            font-weight: bold;
+        }
+        
+        .tagline {
+            font-size: 1.4rem;
+            color: var(--text-color);
+            margin: 3rem auto;
+            font-style: italic;
+            display: block;
+            text-align: center;
+            max-width: 600px;
+            padding: 1.5rem;
+            font-weight: bold;
+            border-top: 2px solid var(--text-color);
+            border-bottom: 2px solid var(--text-color);
+            background: rgba(35, 41, 122, 0.2);
+        }
+        
+        /* Page Navigation Links */
+        .page-navigation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4rem;
+            margin: 4rem auto;
+            padding: 2rem;
+            max-width: 800px;
+        }
+        
+        .nav-arrow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.3s;
+            padding: 1rem;
+            min-width: 100px;
+        }
+        
+        .nav-arrow:hover {
+            transform: scale(1.05);
+        }
+        
+        .nav-arrow i {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .nav-arrow span {
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        /* 1-inch Pentagram Navigation Links */
+        .pentagram-nav {
+            width: 96px; /* 1 inch = 96px at 96 DPI */
+            height: 96px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.3s;
+        }
+        
+        .pentagram-nav:hover {
+            transform: scale(1.1);
+        }
+        
+        .pentagram-nav svg {
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke: var(--text-color);
+            stroke-width: 2;
+        }
+        
+        /* Disabled navigation arrow */
+        .disabled-nav {
+            opacity: 0.5;
+            cursor: default;
+            pointer-events: none;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .page-navigation {
+                gap: 3rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+                padding: 1rem;
+                margin: 2rem auto;
+            }
+            
+            .glowing-pentagram {
+                width: 144px;
+                height: 144px;
+                margin: 1rem auto 1.5rem;
+            }
+            
+            .logo-pentacle {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .page-navigation {
+                flex-direction: column;
+                gap: 2rem;
+                margin: 3rem auto;
+            }
+            
+            .pentagram-nav {
+                width: 80px;
+                height: 80px;
+                order: -1;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .tagline {
+                font-size: 1.1rem;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .glowing-pentagram {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background with pentacles -->
+    <div class="starry-background"></div>
+    <div class="stars" id="stars"></div>
+    
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-pentacle">
+                    <svg viewBox="0 0 100 100">
+                        <path d="M50,5 L61,35 L93,35 L66,55 L76,85 L50,65 L24,85 L34,55 L7,35 L39,35 Z" 
+                              stroke="#73C2FB" 
+                              stroke-width="3" 
+                              fill="none"/>
+                    </svg>
+                </div>
+                <span>Dark Star Tarot</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="readings.html">Readings</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Dark Star Tarot</h1>
+        
+        <!-- Glowing 2-inch Pentagram -->
+        <div class="glowing-pentagram">
+            <svg viewBox="0 0 100 100">
+                <path d="M50,5 L61,35 L93,35 L66,55 L76,85 L50,65 L24,85 L34,55 L7,35 L39,35 Z" 
+                      stroke="#73C2FB" 
+                      stroke-width="3" 
+                      fill="none"/>
+            </svg>
+        </div>
+        
+        <div class="subtitle">Psychic Readings by Ann Lee</div>
+        <p>As a seasoned psychic medium and certified Reiki master, I offer expert guidance and precise intuitive readings to help navigate life's mysteries with insight and compassion.</p>
+        <p>Readings combine traditional methods with intuitive insights, creating a powerful experience that provides clarity, guidance, and understanding.</p>
+        <div class="tagline">"Each reading is different and requires a different set of skills"</div>
+        
+        <!-- Page Navigation -->
+        <div class="page-navigation">
+            <!-- Previous Page (disabled on first page) -->
+            <div class="nav-arrow disabled-nav">
+                <i class="fas fa-arrow-left"></i>
+                <span>Previous<br>Page</span>
+            </div>
+            
+            <!-- 1-inch Pentagram Link to Next Page -->
+            <a href="readings.html" class="pentagram-nav" title="Go to Readings Page">
+                <svg viewBox="0 0 100 100">
+                    <path d="M50,5 L61,35 L93,35 L66,55 L76,85 L50,65 L24,85 L34,55 L7,35 L39,35 Z" 
+                          stroke="#73C2FB" 
+                          stroke-width="2" 
+                          fill="none"/>
+                </svg>
+            </a>
+            
+            <!-- Next Page -->
+            <a href="readings.html" class="nav-arrow" title="Go to Readings Page">
+                <i class="fas fa-arrow-right"></i>
+                <span>Next<br>Page</span>
+            </a>
+        </div>
+    </section>
+
+    <script>
+        // Create animated pentacles for background
+        function createPentacles() {
+            const starsContainer = document.getElementById('stars');
+            const pentacleCount = 50;
+            
+            for (let i = 0; i < pentacleCount; i++) {
+                const pentacle = document.createElement('div');
+                pentacle.classList.add('pentacle-small');
+                
+                // Random position
+                pentacle.style.left = `${Math.random() * 100}%`;
+                pentacle.style.top = `${Math.random() * 100}%`;
+                
+                // Random size
+                const size = Math.random() * 8 + 4;
+                pentacle.style.width = `${size}px`;
+                pentacle.style.height = `${size}px`;
+                
+                // Create SVG pentacle
+                pentacle.innerHTML = `
+                    <svg viewBox="0 0 100 100" width="${size}" height="${size}">
+                        <path d="M50,10 L58,35 L85,35 L62,50 L70,75 L50,60 L30,75 L38,50 L15,35 L42,35 Z" 
+                              stroke="#73C2FB" 
+                              stroke-width="1" 
+                              fill="none"/>
+                    </svg>
+                `;
+                
+                // Random animation delay
+                pentacle.style.animationDelay = `${Math.random() * 5}s`;
+                pentacle.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                
+                starsContainer.appendChild(pentacle);
+            }
+        }
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Initialize pentacles when page loads
+        window.addEventListener('DOMContentLoaded', createPentacles);
+    </script>
+</body>
+</html>
